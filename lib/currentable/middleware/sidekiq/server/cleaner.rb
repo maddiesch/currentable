@@ -6,9 +6,12 @@ module Currentable
       module Server
         class Cleaner
           def call(_worker, _job, _queue)
-            yield
-          ensure
             Currentable::Cleaner.clean_all
+            begin
+              yield
+            ensure
+              Currentable::Cleaner.clean_all
+            end
           end
         end
       end

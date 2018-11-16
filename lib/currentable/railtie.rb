@@ -1,9 +1,11 @@
-require_relative 'auto_cleaner'
+require_relative 'middleware/rails/cleaner'
 
 module Currentable
-  class Railtie < Rails::Railtie
+  ##
+  # Auto installs the middleware for clearing currents in a Rails application.
+  class Railtie < ::Rails::Railtie
     initializer 'currentable.install_middleware' do |app|
-      app.middleware.insert_after ActionDispatch::RemoteIp, Currentable::AutoCleaner
+      app.middleware.insert_after ActionDispatch::RemoteIp, Currentable::Middleware::Rails::Cleaner
     end
   end
 end

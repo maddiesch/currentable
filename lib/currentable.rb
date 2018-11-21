@@ -11,6 +11,10 @@ if defined? ::Sidekiq
   require 'currentable/sidetie'
 end
 
+if defined? ::RSpec
+  require 'currentable/rspectie'
+end
+
 ##
 # Adds a .current and .current= method to objects for thread storeage.
 module Currentable

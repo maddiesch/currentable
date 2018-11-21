@@ -19,6 +19,9 @@ module Currentable
           end
           klass.current = nil
         end
+        if defined? ::Rails
+          ::Rails.logger.debug ''
+        end
       end
     end
   end

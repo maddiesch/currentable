@@ -41,8 +41,8 @@ RSpec.describe Currentable do
     it 'clears all' do
       Foo.current = Foo.new
       Bar.current = Bar.new
-      expect(Foo).to receive(:current=).with(nil)
-      expect(Bar).to receive(:current=).with(nil)
+      expect(Foo).to receive(:current=).with(nil).twice
+      expect(Bar).to receive(:current=).with(nil).twice
       Currentable::Cleaner.clean_all
     end
   end

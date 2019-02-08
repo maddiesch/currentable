@@ -1,3 +1,4 @@
+require 'rack/body_proxy'
 require 'currentable/cleaner'
 
 module Currentable
@@ -16,13 +17,13 @@ module Currentable
 
         ##
         # @private
-        def call(*args)
-          Currentable::Cleaner.clean_all
-          begin
-            @app.call(*args)
-          ensure
+        def call(env)
+          response = @app.call(env)
+          returned = response << Rack::BodyProxy.new(response.pop) do
             Currentable::Cleaner.clean_all
           end
+        ensure
+          Currentable::Cleaner.clean_all unless returned
         end
       end
     end

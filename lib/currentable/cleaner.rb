@@ -14,9 +14,6 @@ module Currentable
       # @note Will only clean for objects stored on the calling thread.
       def clean_all
         Currentable::Registry.currents.each do |klass|
-          if defined? ::Rails
-            ::Rails.logger.debug "Cleaning current for #{klass}"
-          end
           klass.current = nil
         end
       end
